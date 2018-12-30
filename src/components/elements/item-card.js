@@ -24,52 +24,43 @@ import CardContent from '@material-ui/core/CardContent'
 
 import Chip from '@material-ui/core/Chip'
 
+
+import Avatar from '@material-ui/core/Avatar'
+import Grid from '@material-ui/core/Grid'
+
 import { withStyles } from '@material-ui/core/styles'
 
 const styles = theme => ({
-  itemCard: {
-    display: 'flex',
-    width: '650px'
+  avator: {
+    margin: 10,
+    width: 90,
+    height: 90,
   },
-  itemCardDetails: {
-    display: 'flex',
-    flexDirection: 'column',
+  itemCardContentTitle: {
     width: '100%',
-    fontSize: '0.8em',
-    textAlign: 'left'
   },
-  itemCardContent: {
-    flex: '1 0 auto',
-  },
-  itemCardCover: {
-    width: 150,
-  }
 })
 
 class ItemCard extends React.Component {
   render() {
     const { classes } = this.props
-    const { title } = this.props
-    const { address } = this.props
-    const { featuredImageUrl } = this.props
+    const { restaurant } = this.props
+    let title = restaurant.name
+    let address = restaurant.location.address
+    let featuredImageUrl = restaurant.featured_image
 
     return (
-      <Card className={classes.itemCard}>
-        <div className={classes.itemCardDetails}>
-          <CardContent className={classes.itemCardContent}>
-            <Typography component="h5" className={classes.featuredCardContentTitle}>
-              Murray's Bagels
-            </Typography>
-            <Typography color="textSecondary" >
-              500 Sixth Avenue, New York 10011, New York City, 10025
-            </Typography>
-          </CardContent>
-        </div>
-        <CardMedia
-          className={classes.itemCardCover}
-          image="https://b.zmtcdn.com/data/res_imagery/16773028_CHAIN_3b8b7ffafba0d8551de42a6b1b8e7f97_c.jpg?output-format=webp"
-        />
-      </Card>
+      <div>
+        <Grid container justify="center" alignItems="center">
+          <Avatar alt={title} src={featuredImageUrl} className={classes.avator} />
+          <Typography component="h5" className={classes.itemCardContentTitle}>
+            {title}
+          </Typography>
+          <Typography color="textSecondary" >
+            {address}
+          </Typography>
+        </Grid>
+      </div>
     )
   }
 }

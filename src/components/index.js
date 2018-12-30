@@ -11,6 +11,7 @@ import SearchIcon from '@material-ui/icons/Search'
 import { withStyles } from '@material-ui/core/styles'
 
 import TypeButton from './elements/type-button'
+import FindingsDialog from './elements/findings-dialog'
 
 const styles = theme => ({
   locationTextField: {
@@ -56,7 +57,8 @@ class Index extends React.Component {
         { key: 'bakery', isSelected: false },
         { key: 'breakfast', isSelected: false },
         { key: 'all', isSelected: true },
-      ]
+      ],
+      isDialogOpen: false
     }
   }
 
@@ -87,6 +89,17 @@ class Index extends React.Component {
 
     this.setState({
       options: options
+    })
+  }
+
+  _onSearchBtnClick = () => {
+    this.setState({
+      isDialogOpen: true
+    })
+  }
+  _onDialogCloseBtnClick = () => {
+    this.setState({
+      isDialogOpen: false
     })
   }
 
@@ -130,10 +143,11 @@ class Index extends React.Component {
           </GridList>
         </div>
         <div className={classes.searchButtonsPanel}>
-          <Button variant="contained" size="large" color="primary" disabled={false}>
-          <SearchIcon className={classes.searchButtonIcon} />
+          <Button variant="contained" size="large" color="primary" disabled={false} onClick={this._onSearchBtnClick}>
+            <SearchIcon className={classes.searchButtonIcon} />
             Find GOOD FOOD SPOTS
           </Button>
+          <FindingsDialog isOpen={this.state.isDialogOpen} onClose={this._onDialogCloseBtnClick} />
         </div>
       </div>
     )
